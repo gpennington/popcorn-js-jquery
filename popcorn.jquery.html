@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Popcorn plugins</title>
+	
+	<style>
+		.blue { background-color: #7777ff;}
+		.green { background-color: #77ff77;}
+		.red { background-color: #ff7777;}
+	</style>
+	<link rel="stylesheet" href="js/video-js.css" type="text/css" media="screen" />
+
+	<script src="http://code.jquery.com/jquery-1.4.4.js"></script>
+	<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+	<script src="popcorn.jquery.js"></script>
+	<script type="text/javascript">
+		
+		//Ready	
+		$(function(){
+			
+			var p = Popcorn("#video");
+			
+			var foo = "<strong> Foo! </strong>";
+			var bar = "<strong> Bar! </strong>";
+			var sel = $('ul').children('li.red');
+			
+			
+			p.jquery({
+				target: 'li',
+				start: 1,
+				end: 3,
+				content: foo,
+				method: 'insertAfter',
+				onStart: function(options, content){
+					//$(options.target).eq(3).html(content[3]);
+					//$(content).filter(':even').prepend('Moo! ');
+					$(content).filter(':even').css('color','#ffff00');
+				},
+				onEnd: function(options, content){
+					//$(content).filter(':even').text('choo');
+				},
+			})
+			
+			p.jquery({
+				target: 'p.b',
+				start: 5,
+				end: 7,
+				content: bar,
+				method: "append",
+				onStart: function(options, content){
+					$(content).css('margin-left', '50px');
+				},
+				onEnd: function(options, content){
+					//$(content).css('margin-left', '50px');
+				},
+			})
+			
+		});
+	</script>
+
+</head>
+<body>
+
+	<video id="video" preload="auto" controls autobuffer autoplay width="480" height="270">
+		<source src="wtfpopcorn.mp4" type="video/mp4">
+		<source src="wtfpopcorn.ogv" type="video/ogg">
+	</video>
+
+	<ul>
+		<li id="one" class="blue">One</li>
+		<li id="two" class="green">Two</li>
+		<li id="three" class="red">Three</li>
+		<li id="four" class="blue">Four</li>
+		<li id="five" class="red">Five</li>
+		<li id="six" class="blue">Five</li>
+	</ul>
+
+	<p class="aye">Test Paragraph A</p>
+	<p class="b">Test Paragraph B</p>
+
+</body>
+</html>
